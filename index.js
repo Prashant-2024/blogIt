@@ -3,26 +3,24 @@ import express from "express";
 
 const app = express();
 const port = 3000;
-var newBlog;
+var blogs = [];
 app.use(express.static("public"));
-
-
-function addBlog(req, res, next) {
-  newBlog = req.body["blog"];
-  next();
-}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(addBlog);
-
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", { blogs: blogs });
 });
 
 app.post("/submit", (req, res) => {
-    console.log(newBlog);
-  res.render("index.ejs", { blogs: newBlog });
+  const { blogTitle, blogContent } = req.body;
+  const newBlog = {
+    title: blogTitle,
+    content: blogContent,
+    date: new Date().toDateString(),
+  };
+  blogs.unshift(newBlog);
+  res.redirect("/");
 });
 
 app.listen(port, (error) => {

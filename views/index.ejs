@@ -3,10 +3,21 @@
 <h1>Write Your Blog Below 👇</h1>
 
 <form action="/submit" method="post">
-  <input type="text" id="blog" name="blog" />
+  <input type="text" id="blog-title" name="blogTitle" required>
+  <input type="text" id="blog" name="blogContent" required/>
   <button>Submit</button>
 </form>
 
-<p><%= blogs %></p>
+<% if (locals.blogs!=0) %> 
+    <% for (var blog of blogs) { %>
+        <div>
+        <h2><%= blog.title %></h2>
+        <h5><%= blog.date %></h5>
+        <br>
+        <p><%= blog.content %></p>
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
+        </div>
+    <% } %> 
 
 <%- include('partials/footer.ejs') %>
