@@ -2,4 +2,11 @@
 
 <h1>Write Your Blog Below 👇</h1>
 
+<form action="/submit" method="post">
+  <input type="text" id="blog" name="blog" />
+  <button>Submit</button>
+</form>
+
+<p><%= blogs %></p>
+
 <%- include('partials/footer.ejs') %>
